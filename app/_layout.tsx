@@ -1,31 +1,44 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+type AuthContextType = {
+  isAuthenticated: boolean;
+  email: string | null;
+  login: (email: string) => void;
+  logout: () => void;
+};
 
-export const unstable_settings = {
-  anchor: '(tabs)',
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const useAuth = () => {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  return ctx;
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [email, setEmail] = useState<string | null>(null);
+
+  const value = useMemo<AuthContextType>(() => ({
+    isAuthenticated: !!email,
+    email,
+    login: setEmail,
+    logout: () => setEmail(null),
+  }), [email]);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        <Stack.Screen name="about" options={{ title: 'About' }} />
-        <Stack.Screen name="services" options={{ title: 'Services' }} />
-        <Stack.Screen name="portfolio" options={{ title: 'Portfolio' }} />
-        <Stack.Screen name="pricing" options={{ title: 'Pricing' }} />
-        <Stack.Screen name="careers" options={{ title: 'Careers' }} />
-        <Stack.Screen name="support" options={{ title: 'Support' }} />
-        <Stack.Screen name="contact" options={{ title: 'Contact' }} />
+    <AuthContext.Provider value={value}>
+      <StatusBar style="light" backgroundColor="#0A0F0F" />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0A0F0F' } }}>
+        {!value.isAuthenticated ? (
+          <Stack.Screen name="login" />
+        ) : (
+          // Navigate to a real screen inside (tabs), not the folder itself
+          <Stack.Screen name="(tabs)/voice" />
+        )}
+        <Stack.Screen name="payment" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </AuthContext.Provider>
   );
 }
