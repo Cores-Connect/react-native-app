@@ -43,7 +43,7 @@ const VoiceScreen: React.FC<Props> = () => {
   }, [textOpacity]);
 
   const goToChat = () => {
-    router.push('/(tabs)/chat' as any);
+    router.push('/(tabs)/chat');
   };
 
   const confirmExit = () => {
@@ -101,7 +101,7 @@ const VoiceScreen: React.FC<Props> = () => {
         </Text>
         <TouchableOpacity
           onPress={() => Alert.alert('User', 'test user logged in', [
-            { text: 'Logout', onPress: () => router.replace('/login' as any) },
+            { text: 'Logout', onPress: () => router.replace('/login') },
             { text: 'Close', style: 'cancel' },
           ])}
           style={{

@@ -31,12 +31,8 @@ export default function RootLayout() {
     <AuthContext.Provider value={value}>
       <StatusBar style="light" backgroundColor="#0A0F0F" />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0A0F0F' } }}>
-        {!value.isAuthenticated ? (
-          <Stack.Screen name="login" />
-        ) : (
-          // Navigate to a real screen inside (tabs), not the folder itself
-          <Stack.Screen name="(tabs)/voice" />
-        )}
+        <Stack.Screen name="login" />
+        <Stack.Screen name="(tabs)" />
         <Stack.Screen name="payment" />
       </Stack>
     </AuthContext.Provider>

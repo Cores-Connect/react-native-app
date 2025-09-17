@@ -64,7 +64,7 @@ const PlansScreen: React.FC<Props> = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {/* Header */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 8 }}>
-                    <Link href={"/chat" as any} asChild>
+                    <Link href={"/(tabs)/chat"} asChild>
                         <TouchableOpacity
                             style={{
                                 width: 36,

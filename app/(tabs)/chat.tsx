@@ -91,7 +91,7 @@ const ChatScreen: React.FC = () => {
         }}
       >
         {/* Back button */}
-        <Link href={'/voice' as any} asChild>
+        <Link href={'/(tabs)/voice'} asChild>
           <TouchableOpacity
             style={{
               width: 36,

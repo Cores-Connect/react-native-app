@@ -13,7 +13,7 @@ export default function Login() {
   const onSubmit = () => {
     if (email === 'test@gmail.com' && password === 'test') {
       login(email);
-      router.replace('/(tabs)/voice' as any);
+      router.replace('/(tabs)/voice');
     } else {
       showToast('Invalid credentials. Use test@gmail.com / test');
     }

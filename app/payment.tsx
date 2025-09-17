@@ -15,7 +15,7 @@ export default function Payment() {
       return;
     }
     Alert.alert('Success', 'Payment successful! Starting your free trial.', [
-      { text: 'OK', onPress: () => router.replace('/(tabs)/voice' as any) },
+      { text: 'OK', onPress: () => router.replace('/(tabs)/voice') },
     ]);
   };
 
